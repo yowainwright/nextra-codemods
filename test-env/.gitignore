@@ -1,0 +1,17 @@
+# Test environment
+with-nextra-3/
+with-nextra-3-backup/
+with-nextra-4/
+examples/
+
+# Node.js
+node_modules/
+.next/
+out/
+
+# Pagefind
+_pagefind/
+
+# Misc
+.DS_Store
+*.log

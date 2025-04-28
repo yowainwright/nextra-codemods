@@ -1,0 +1,24 @@
+{
+  "name": "nextra-codemods",
+  "version": "0.1.0",
+  "description": "Codemods to help migrate from Nextra v3 to v4",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "nextra",
+    "codemod",
+    "migration",
+    "v3",
+    "v4"
+  ],
+  "author": "Jeff Wainwright",
+  "license": "MIT",
+  "dependencies": {
+    "jscodeshift": "^0.15.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

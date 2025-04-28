@@ -87,6 +87,15 @@ web_modules/
 .next
 out
 
+# Pagefind
+_pagefind/
+
+# Test environment
+test-env/with-nextra-3/
+test-env/with-nextra-3-backup/
+test-env/with-nextra-4/
+test-env/examples/
+
 # Nuxt.js build / generate output
 .nuxt
 dist
