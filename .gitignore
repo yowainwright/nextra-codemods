@@ -90,12 +90,6 @@ out
 # Pagefind
 _pagefind/
 
-# Test environment
-test-env/with-nextra-3/
-test-env/with-nextra-3-backup/
-test-env/with-nextra-4/
-test-env/examples/
-
 # Nuxt.js build / generate output
 .nuxt
 dist
@@ -143,3 +137,8 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+# SpecStory explanation file
+.specstory/
+.vscode/
+# SpecStory explanation file
+.specstory/.what-is-this.md

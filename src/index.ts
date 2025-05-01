@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const path = require('path');
-const { execSync } = require('child_process');
+import path from 'path';
+import { execSync } from 'child_process';
 
 const [,, transform, targetPath] = process.argv;
 
@@ -10,12 +10,12 @@ if (!transform || !targetPath) {
   process.exit(1);
 }
 
-const availableTransforms = {
-  'migrate-theme-config': './src/transforms/migrate-theme-config.js',
-  'migrate-pages-to-app': './src/transforms/migrate-pages-to-app.js',
-  'setup-search': './src/transforms/setup-search.js',
-  'migrate-meta-files': './src/transforms/migrate-meta-files.js',
-  'migrate-mdx-components': './src/transforms/migrate-mdx-components.js',
+const availableTransforms: Record<string, string> = {
+  'migrate-theme-config': './transforms/migrate-theme-config.js',
+  'migrate-pages-to-app': './transforms/migrate-pages-to-app.js',
+  'setup-search': './transforms/setup-search.js',
+  'migrate-meta-files': './transforms/migrate-meta-files.js',
+  'migrate-mdx-components': './transforms/migrate-mdx-components.js',
 };
 
 if (!availableTransforms[transform]) {
@@ -25,16 +25,13 @@ if (!availableTransforms[transform]) {
 
 const transformPath = path.resolve(__dirname, availableTransforms[transform]);
 
-let result;
 try {
-  result = execSync(
+  execSync(
     `npx jscodeshift --transform ${transformPath} ${targetPath}`,
     { stdio: 'inherit' }
   );
   console.log(`Successfully applied transform "${transform}" to "${targetPath}"`);
-
 } catch (error) {
-  console.error(`Error applying transform "${transform}" to "${targetPath}":`, error.message);
-  console.info({ result});
+  console.error(`Error applying transform "${transform}" to "${targetPath}":`, (error as Error).message);
   process.exit(1);
 }

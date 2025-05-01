@@ -115,51 +115,36 @@ This repository includes example project structures for both migration approache
 
 ## Testing Environment
 
-This repository includes a Tilt-based testing environment to help verify the codemods against a real Nextra v3 project.
+This repository includes a Tiltfile to help test the codemods against a real Nextra v3 project.
 
 ### Prerequisites
 
-- [Tilt](https://tilt.dev/) installed on your machine
-- Node.js and npm
+- [Docker](https://www.docker.com/) installed and running
+- [Kubernetes](https://kubernetes.io/) cluster (or [Docker Desktop with Kubernetes enabled](https://docs.docker.com/desktop/kubernetes/))
+- [Tilt](https://tilt.dev/) installed
 
-### Setup
+### Testing with Tilt
 
-1. Clone this repository
-2. Run `npm install` to install dependencies
-3. Run `tilt up` to start the testing environment
-
-### Testing Process
-
-The testing environment:
-
-1. Clones the Nextra v3 example repository
-2. Creates a backup of the original project
-3. Applies the codemods to the Nextra v3 project
-4. Copies the migrated files to a new Nextra v4 directory
-5. Updates the package.json for Nextra v4
-6. Runs both the original Nextra v3 and migrated Nextra v4 projects
-
-You can also use the `test-codemods.sh` script to test the codemods:
+To test the codemods:
 
 ```bash
-# Set up the test environment
-./test-codemods.sh setup
-
-# Apply codemods to the Nextra v3 project
-./test-codemods.sh apply
-
-# Copy the migrated files to the Nextra v4 directory
-./test-codemods.sh copy
-
-# Update the package.json for Nextra v4
-./test-codemods.sh update
-
-# Reset the test environment
-./test-codemods.sh reset
-
-# Run all steps
-./test-codemods.sh all
+# Run Tilt
+tilt up
 ```
+
+The Tiltfile will:
+
+1. Build a Docker image with a Nextra v3 project from [https://github.com/code-hike/examples/tree/main/with-nextra-3](https://github.com/code-hike/examples/tree/main/with-nextra-3)
+2. Deploy it to your Kubernetes cluster as a test service
+3. Make it accessible at [http://localhost:3000](http://localhost:3000)
+
+You can then manually apply the codemods to the running project to test their effectiveness.
+
+### Accessing the Test Service
+
+Once Tilt is running, you can access the Nextra v3 test service at [http://localhost:3000](http://localhost:3000).
+
+The Tilt UI (available at [http://localhost:10350](http://localhost:10350)) will also provide links to the test service and show the status of each step in the process.
 
 ## License
 
