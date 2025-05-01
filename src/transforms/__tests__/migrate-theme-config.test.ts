@@ -1,8 +1,7 @@
-const { test, expect } = require('jest');
-const transform = require('../migrate-theme-config');
-const jscodeshift = require('jscodeshift');
-const fs = require('fs');
-const path = require('path');
+import { test, expect } from 'jest';
+import transform from '../migrate-theme-config';
+import jscodeshift from 'jscodeshift';
+import fs from 'fs';
 
 // Mock fs module to avoid writing files during tests
 jest.mock('fs', () => ({

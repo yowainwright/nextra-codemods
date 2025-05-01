@@ -1,6 +1,6 @@
-const { test, expect } = require('jest');
-const transform = require('../migrate-meta-files');
-const jscodeshift = require('jscodeshift');
+import { test, expect } from'jest';
+import transform from '../migrate-meta-files';
+import jscodeshift from 'jscodeshift';
 
 test('migrate-meta-files transforms _meta.js correctly', () => {
   // Sample _meta.js content

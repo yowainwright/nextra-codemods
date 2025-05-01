@@ -1,7 +1,7 @@
-const { test, expect } = require('jest');
-const transform = require('../setup-search');
-const jscodeshift = require('jscodeshift');
-const fs = require('fs');
+import { test, expect } from 'jest';
+import transform from '../setup-search';
+import jscodeshift from 'jscodeshift';
+import fs from'fs';
 
 // Mock fs module
 jest.mock('fs', () => ({

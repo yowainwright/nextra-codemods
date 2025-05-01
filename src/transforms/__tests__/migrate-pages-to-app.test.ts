@@ -1,8 +1,7 @@
-const { test, expect } = require('jest');
-const transform = require('../migrate-pages-to-app');
-const jscodeshift = require('jscodeshift');
-const fs = require('fs');
-const path = require('path');
+import { test, expect } from 'jest';
+import transform from '../migrate-pages-to-app';
+import jscodeshift from 'jscodeshift';
+import fs from 'fs';
 
 // Mock fs module
 jest.mock('fs', () => ({
