@@ -1,0 +1,10 @@
+[tools]
+node = "23"
+
+[settings]
+# Give mise precedence over other version managers
+always_keep_download = true
+verbose = false
+legacy_version_file = true
+# Ensure mise loads before other version managers
+priority = true
