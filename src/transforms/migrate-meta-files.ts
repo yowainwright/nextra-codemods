@@ -27,24 +27,24 @@ export default function transformer(
   objectExpression.forEach(path => {
     const properties = path.node.properties;
     
-    properties.forEach(prop => {
-      if (prop.key && prop.key.name === 'newWindow') {
+    properties.forEach((prop: any) => {
+      if (prop.type === 'Property' && prop.key && prop.key.name === 'newWindow') {
         j(prop).remove();
       }
       
-      if (prop.key && prop.key.name === 'theme' && prop.value.type === 'ObjectExpression') {
+      if (prop.type === 'Property' && prop.key && prop.key.name === 'theme' && prop.value && prop.value.type === 'ObjectExpression') {
         const themeProps = prop.value.properties;
-        const layoutProp = themeProps.find(p => p.key && p.key.name === 'layout');
+        const layoutProp = themeProps.find((p: any) => p.key && p.key.name === 'layout');
         
-        if (layoutProp && layoutProp.value.type === 'StringLiteral' && layoutProp.value.value === 'raw') {
+        if (layoutProp && layoutProp.value && layoutProp.value.type === 'StringLiteral' && layoutProp.value.value === 'raw') {
           j(layoutProp).remove();
         }
       }
     });
   });
   
-  const useClientDirective = root.find(j.Directive, {
-    expression: { 
+  const useClientDirective = root.find(j.ExpressionStatement, {
+    expression: {
       type: 'Literal',
       value: 'use client'
     }

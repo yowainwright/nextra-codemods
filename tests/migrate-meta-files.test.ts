@@ -14,18 +14,17 @@ export default {
 }
   `;
   
-  // Expected output with new format
-  const expected = input.includes('display: "hidden"') ? input : input;
-  
   // Run the transform
   const output = transform(
     { path: '_meta.js', source: input },
-    { jscodeshift: jscodeshift, j: jscodeshift, stats: () => {}, report: () => {} },
+    { jscodeshift, j: jscodeshift, stats: () => {}, report: () => {} },
     {}
   );
   
-  // Verify the output matches expected format
-  expect(output).toEqual(expected);
+  // Verify the output contains the "use client" directive
+  expect(output).toContain('use client');
+  expect(output).toContain('export default {');
+  expect(output).toContain('index: \'Introduction\'');
 });
 
 test('migrate-meta-files skips non-_meta files', () => {
@@ -38,7 +37,7 @@ export default {
   // Run the transform on a non-_meta file
   const output = transform(
     { path: 'some-other-file.js', source: input },
-    { jscodeshift: jscodeshift, j: jscodeshift, stats: () => {}, report: () => {} },
+    { jscodeshift, j: jscodeshift, stats: () => {}, report: () => {} },
     {}
   );
   

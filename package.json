@@ -17,7 +17,7 @@
     "test:watch": "jest --watch",
     "lint": "eslint . --ext .ts,.tsx",
     "typecheck": "tsc --noEmit",
-    "prepare": "husky"
+    "prepare": "corepack enable && husky install"
   },
   "keywords": [
     "nextra",
@@ -52,8 +52,19 @@
     "testMatch": [
       "**/tests/**/*.test.ts"
     ],
-    "moduleNameMapper": {
-      "^src/(.*)$": "<rootDir>/src/$1"
-    }
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "json"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/"
+    ],
+    "verbose": true
+  },
+  "packageManager": "pnpm@10.9.0",
+  "engines": {
+    "node": ">=22.0.0"
   }
 }
