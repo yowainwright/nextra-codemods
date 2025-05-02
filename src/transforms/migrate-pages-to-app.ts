@@ -17,9 +17,6 @@ export default function transformer(
     return file.source;
   }
 
-  // Check if app directory already exists
-  const appDirExists = fs.existsSync(appDir);
-
   // Handle auto-rename option
   if (options.autoRename) {
     console.log(

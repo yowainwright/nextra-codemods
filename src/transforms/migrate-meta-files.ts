@@ -3,8 +3,8 @@ import { FileInfo, API, Options } from "jscodeshift";
 export default function transformer(
   file: FileInfo,
   api: API,
-  options: Options,
-): string {
+  _options: Options,
+) {
   if (!file.path.includes("_meta.js") && !file.path.includes("_meta.ts")) {
     return file.source;
   }
