@@ -5,11 +5,11 @@ import path from "path";
 export default function transformer(
   file: FileInfo,
   api: API,
-  options: Options,
-): string {
+  _options: Options,
+) {
   const j = api.jscodeshift;
   const root = j(file.source);
-  const projectRoot = options.projectRoot || process.cwd();
+  const _projectRoot = process.cwd();
 
   // Handle different file types
   if (file.path.includes("package.json")) {

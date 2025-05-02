@@ -6,6 +6,25 @@ import prettier from 'eslint-plugin-prettier';
 export default [
   js.configs.recommended,
   {
+    files: ['**/*.{js,jsx,ts,tsx}'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: {
+        // Add Node.js globals
+        process: 'readonly',
+        console: 'readonly',
+        module: 'readonly',
+        require: 'readonly',
+        __dirname: 'readonly',
+        __filename: 'readonly',
+      },
+    },
+    rules: {
+      'no-undef': 'error',
+    },
+  },
+  {
     files: ['**/*.{ts,tsx}'],
     plugins: {
       '@typescript-eslint': typescript,
@@ -25,9 +44,30 @@ export default [
       ...typescript.configs.recommended.rules,
       'prettier/prettier': 'error',
       'no-unused-vars': 'off',
-      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-unused-vars': ['error', { 
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+      }],
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/no-explicit-any': 'warn',
+    },
+  },
+  {
+    // Special configuration for fixture files
+    files: ['__fixtures__/**/*.{js,jsx,ts,tsx}'],
+    languageOptions: {
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+      globals: {
+        React: 'readonly',
+      },
+    },
+    rules: {
+      // Disable parsing errors for fixture files that contain JSX
+      'no-undef': 'off',
     },
   },
   {

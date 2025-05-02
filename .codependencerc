@@ -1,0 +1,23 @@
+{
+  "codependencies": [
+    "@eslint/js",
+    "@jest/globals",
+    "@release-it/conventional-changelog",
+    "@types/jest",
+    "@types/jscodeshift",
+    "@types/node",
+    "@typescript-eslint/eslint-plugin",
+    "@typescript-eslint/parser",
+    "chalk",
+    "eslint",
+    "eslint-plugin-prettier",
+    "husky",
+    "jest",
+    "jscodeshift",
+    "ora",
+    "release-it",
+    "ts-jest",
+    "tsup",
+    "typescript"
+  ]
+}

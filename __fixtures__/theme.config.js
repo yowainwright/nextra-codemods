@@ -1,5 +1,4 @@
 import { useConfig } from 'nextra-theme-docs'
-import { useRouter } from 'next/router'
 
 export default {
   logo: () => <span>My Project</span>,
@@ -11,7 +10,6 @@ export default {
     text: 'MIT License'
   },
   head: () => {
-    const { asPath } = useRouter()
     const { frontMatter } = useConfig()
     return (
       <>

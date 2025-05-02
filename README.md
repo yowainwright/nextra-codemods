@@ -198,6 +198,45 @@ To contribute to this project:
    pnpm build
    ```
 
+## Releasing
+
+This project uses [release-it](https://github.com/release-it/release-it) to manage releases. To create a new release:
+
+1. Make sure all your changes are committed and pushed to the repository.
+
+2. Run the release command:
+   ```bash
+   pnpm release
+   ```
+
+3. Follow the interactive prompts to select the new version number.
+
+4. The release process will:
+   - Run linting and tests
+   - Bump the version in package.json
+   - Build the project
+   - Generate/update the CHANGELOG.md file
+   - Create a Git tag and commit
+   - Push changes to GitHub
+   - Create a GitHub release
+   - Publish to npm
+
+For a dry run without making any changes, use:
+```bash
+pnpm release --dry-run
+```
+
+### Commit Guidelines
+
+This project follows [Conventional Commits](https://www.conventionalcommits.org/) for generating changelogs. Please format your commit messages as:
+
+- `feat: add new feature` - for new features
+- `fix: resolve issue` - for bug fixes
+- `docs: update documentation` - for documentation changes
+- `chore: update build scripts` - for maintenance tasks
+- `refactor: improve code structure` - for code improvements
+- `test: add tests` - for test additions or modifications
+
 ## License
 
 MIT
