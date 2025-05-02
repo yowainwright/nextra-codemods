@@ -8,7 +8,7 @@ docker_build(
     ],
 )
 
-k8s_yaml('kubernetes/deployment.yaml')
+k8s_yaml('ops/k8s/deployment.yaml')
 
 k8s_resource(
     'nextra-v3-test-service',
