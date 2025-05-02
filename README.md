@@ -6,8 +6,6 @@ Currently, this repository contains codemods to help migrate from Nextra v3 to v
 
 ## Overview
 
-### Nextra v3 to v4
-
 Nextra v4 introduces several breaking changes, including:
 
 - App Router support (Pages Router discontinued)
@@ -18,127 +16,187 @@ Nextra v4 introduces several breaking changes, including:
 
 These codemods help automate the migration process.
 
-## Migration Steps
+## Quick Start
 
-1. **Choose your MDX rendering mode**:
-   - Content directory convention (using catch-all route)
-   - Page file convention (following App Router conventions)
-
-2. **Migrate theme config**:
-   - Convert `theme.config.js` to App Router layout structure
-   - Create `app/layout.jsx` file with appropriate components
-
-3. **Set up search**:
-   - Install Pagefind
-   - Configure postbuild script
-   - Update .gitignore
-
-4. **Update _meta files**:
-   - Remove deprecated properties
-   - Ensure they're server components
-
-5. **Create mdx-components.jsx**:
-   - Set up custom components
-   - Import appropriate theme components
-
-## Installation
+The easiest way to migrate your Nextra v3 project to v4 is to use our interactive CLI:
 
 ```bash
-# Using pnpm
+# Using pnpm dlx (recommended)
+pnpm dlx nextra-migrate
+
+# Or install globally
 pnpm add -g nextra-codemods
+nextra-migrate
 ```
 
-## Usage
+This interactive tool will:
+
+1. Analyze your project structure
+2. Create backups of important files
+3. Migrate your theme configuration
+4. Convert pages to the App Router format
+5. Set up Pagefind search
+6. Update your Next.js configuration
+7. Configure Tailwind CSS and fix styling issues
+8. Update dependencies to Nextra v4
+9. Install all required packages
+
+Just follow the prompts and your project will be migrated automatically!
+
+## Manual Migration
+
+If you prefer to run the individual steps manually, you can use the following commands:
 
 ```bash
-npx nextra-codemods <transform> <path>
+# Step 1: Migrate theme config
+pnpm dlx nextra-codemods migrate-theme-config ./theme.config.jsx
+
+# Step 2: Migrate pages to app directory
+pnpm dlx nextra-codemods migrate-pages-to-app ./pages
+
+# Step 3: Set up search
+pnpm dlx nextra-codemods setup-search ./package.json
+
+# Step 4: Update Next.js config
+pnpm dlx nextra-codemods update-next-config ./next.config.js
+
+# Step 5: Fix styling issues
+pnpm dlx nextra-codemods fix-all-styles
+
+# Step 6: Update dependencies
+pnpm install nextra@latest nextra-theme-docs@latest
+# or
+pnpm add nextra@latest nextra-theme-docs@latest
 ```
 
-### Available Transforms
+## Using on Your Project
 
-- `migrate-theme-config`: Migrates theme.config.js/tsx to the new App Router layout structure
-- `setup-search`: Sets up the new Pagefind search engine
-- `migrate-meta-files`: Updates _meta files to the new format
-- `migrate-mdx-components`: Creates mdx-components.jsx file from custom components
+To use these codemods on your actual Nextra v3 project, follow these steps:
 
-## Examples
+### Method 1: Using the CLI (Recommended)
+
+1. Navigate to your Nextra v3 project directory:
+   ```bash
+   cd your-nextra-v3-project
+   ```
+
+2. Run the interactive migration CLI:
+   ```bash
+  pnpm dlx nextra-migrate
+   ```
+
+3. Follow the prompts to complete the migration process.
+
+4. After migration, start your development server to verify the changes:
+   ```bash
+   pnpm dev
+   ```
+
+### Method 2: Manual Migration
+
+If you prefer more control over the migration process, you can run individual codemods:
+
+1. Navigate to your Nextra v3 project directory:
+   ```bash
+   cd your-nextra-v3-project
+   ```
+
+2. Create backups of your important files:
+   ```bash
+   cp -r pages pages.bak
+   cp theme.config.jsx theme.config.jsx.bak
+   cp next.config.js next.config.js.bak
+   ```
+
+3. Run the individual codemods in sequence:
+   ```bash
+   # Migrate theme configuration
+   pnpm dlx nextra-codemods migrate-theme-config ./theme.config.jsx
+   
+   # Migrate pages to app directory
+   pnpm dlx nextra-codemods migrate-pages-to-app ./pages
+   
+   # Set up Pagefind search
+   pnpm dlx nextra-codemods setup-search ./package.json
+   
+   # Update Next.js configuration
+   pnpm dlx nextra-codemods update-next-config ./next.config.js
+   
+   # Set up Tailwind CSS
+   pnpm dlx nextra-codemods fix-tailwind
+   
+   # Fix all styling issues
+   pnpm dlx nextra-codemods fix-all-styles
+   ```
+
+4. Update your dependencies:
+   ```bash
+   pnpm add nextra@latest nextra-theme-docs@latest
+   ```
+
+5. Start your development server to verify the changes:
+   ```bash
+   pnpm dev
+   ```
+
+## Troubleshooting
+
+If you encounter any issues during migration, you can use our fix scripts:
 
 ```bash
-# Migrate theme config to app layout
-npx nextra-codemods migrate-theme-config ./theme.config.jsx
+# Fix all common issues at once
+pnpm dlx nextra-codemods fix-nextra
 
-# Set up Pagefind search
-npx nextra-codemods setup-search ./package.json
-
-# Update _meta files
-npx nextra-codemods migrate-meta-files ./_meta.js
-
-# Create mdx-components.jsx from theme config
-npx nextra-codemods migrate-mdx-components ./theme.config.jsx
+# Or fix specific issues
+pnpm dlx nextra-codemods fix-conflicts  # Fix conflicting files
+pnpm dlx nextra-codemods fix-tailwind   # Fix Tailwind CSS issues
+pnpm dlx nextra-codemods fix-next-config # Fix Next.js config
+pnpm dlx nextra-codemods fix-code-hike  # Set up Code Hike
 ```
 
-### Example Project Structure
+## Project Structure After Migration
 
-This repository includes example project structures for both migration approaches:
-
-#### Content Directory Convention
+After running the migration, your project structure should look like:
 
 ```text
 - app/
-  - layout.jsx
-  - [[...mdxPath]]/
-    - page.jsx
-- content/
-  - _meta.js
-  - index.mdx
+  - layout.tsx      # Contains theme configuration
+  - page.mdx        # Root page
+  - _meta.js        # Navigation and page metadata
+  - globals.css     # Global styles with Tailwind
   - docs/
-    - index.mdx
-- mdx-components.jsx
+    - page.mdx      # Doc pages
+- mdx-components.tsx # Custom MDX components
+- next.config.js    # Updated Next.js config
+- package.json      # Updated with Nextra v4 and Pagefind
+- tailwind.config.js # Tailwind CSS configuration
+- postcss.config.js # PostCSS configuration
 ```
 
-#### Page File Convention
+## Development
 
-```text
-- app/
-  - layout.jsx
-  - page.mdx
-  - docs/
-    - page.mdx
-- mdx-components.jsx
-```
+To contribute to this project:
 
-## Testing Environment
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/nextra-codemods.git
+   cd nextra-codemods
+   ```
 
-This repository includes a Tiltfile to help test the codemods against a real Nextra v3 project.
+2. Install dependencies:
+   ```bash
+   pnpm install
+   ```
 
-### Prerequisites
+3. Run tests:
+   ```bash
+   pnpm test
+   ```
 
-- [Docker](https://www.docker.com/) installed and running
-- [Kubernetes](https://kubernetes.io/) cluster (or [Docker Desktop with Kubernetes enabled](https://docs.docker.com/desktop/kubernetes/))
-- [Tilt](https://tilt.dev/) installed
-
-### Testing with Tilt
-
-To test the codemods:
-
-```bash
-# Run Tilt
-tilt up
-```
-
-The Tiltfile will:
-
-1. Build a Docker image with a Nextra v3 project from [https://github.com/code-hike/examples/tree/main/with-nextra-3](https://github.com/code-hike/examples/tree/main/with-nextra-3)
-2. Deploy it to your Kubernetes cluster as a test service
-3. Make it accessible at [http://localhost:3000](http://localhost:3000)
-
-You can then manually apply the codemods to the running project to test their effectiveness.
-
-### Accessing the Test Service
-
-Once Tilt is running, you can access the Nextra v3 test service at [http://localhost:3000](http://localhost:3000).
-
-The Tilt UI (available at [http://localhost:10350](http://localhost:10350)) will also provide links to the test service and show the status of each step in the process.
+4. Build the project:
+   ```bash
+   pnpm build
+   ```
 
 ## License
 
