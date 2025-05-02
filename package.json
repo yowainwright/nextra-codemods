@@ -1,6 +1,6 @@
 {
   "name": "nextra-codemods",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Codemods to help migrate from Nextra v3 to v4",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
