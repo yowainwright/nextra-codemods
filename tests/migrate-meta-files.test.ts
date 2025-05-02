@@ -1,5 +1,4 @@
-import { test, expect } from'jest';
-import transform from '../migrate-meta-files';
+import transform from '../src/transforms/migrate-meta-files';
 import jscodeshift from 'jscodeshift';
 
 test('migrate-meta-files transforms _meta.js correctly', () => {
@@ -21,7 +20,7 @@ export default {
   // Run the transform
   const output = transform(
     { path: '_meta.js', source: input },
-    { jscodeshift },
+    { jscodeshift: jscodeshift, j: jscodeshift, stats: () => {}, report: () => {} },
     {}
   );
   
@@ -39,7 +38,7 @@ export default {
   // Run the transform on a non-_meta file
   const output = transform(
     { path: 'some-other-file.js', source: input },
-    { jscodeshift },
+    { jscodeshift: jscodeshift, j: jscodeshift, stats: () => {}, report: () => {} },
     {}
   );
   

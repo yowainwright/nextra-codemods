@@ -1,5 +1,4 @@
-import { test, expect } from 'jest';
-import transform from '../setup-search';
+import transform from '../src/transforms/setup-search';
 import jscodeshift from 'jscodeshift';
 import fs from'fs';
 
@@ -25,7 +24,7 @@ test('setup-search adds pagefind to package.json', () => {
   // Run the transform
   transform(
     { path: '/project/package.json', source: '' },
-    { jscodeshift },
+    { jscodeshift, j: jscodeshift, stats: () => {}, report: () => {} },
     {}
   );
   
@@ -33,7 +32,7 @@ test('setup-search adds pagefind to package.json', () => {
   expect(fs.writeFileSync).toHaveBeenCalled();
   
   // Get the first call arguments
-  const args = fs.writeFileSync.mock.calls[0];
+  const args = (fs.writeFileSync as jest.Mock).mock.calls[0];
   
   // Check if pagefind was added
   const updatedPackageJson = JSON.parse(args[1]);
@@ -44,7 +43,7 @@ test('setup-search skips non-package.json files', () => {
   // Run the transform on a non-package.json file
   transform(
     { path: '/project/some-other-file.js', source: '' },
-    { jscodeshift },
+    { jscodeshift, j: jscodeshift, stats: () => {}, report: () => {} },
     {}
   );
   

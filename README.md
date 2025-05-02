@@ -1,8 +1,12 @@
 # Nextra Codemods
 
-A collection of codemods to help migrate from Nextra v3 to v4.
+A collection of codemods to help migrate Nextra versions.
+
+Currently, this repository contains codemods to help migrate from Nextra v3 to v4.
 
 ## Overview
+
+### Nextra v3 to v4
 
 Nextra v4 introduces several breaking changes, including:
 
@@ -40,12 +44,6 @@ These codemods help automate the migration process.
 ## Installation
 
 ```bash
-# Using npm
-npm install -g nextra-codemods
-
-# Using yarn
-yarn global add nextra-codemods
-
 # Using pnpm
 pnpm add -g nextra-codemods
 ```
@@ -59,7 +57,6 @@ npx nextra-codemods <transform> <path>
 ### Available Transforms
 
 - `migrate-theme-config`: Migrates theme.config.js/tsx to the new App Router layout structure
-- `migrate-pages-to-app`: Converts Pages Router structure to App Router
 - `setup-search`: Sets up the new Pagefind search engine
 - `migrate-meta-files`: Updates _meta files to the new format
 - `migrate-mdx-components`: Creates mdx-components.jsx file from custom components
@@ -69,9 +66,6 @@ npx nextra-codemods <transform> <path>
 ```bash
 # Migrate theme config to app layout
 npx nextra-codemods migrate-theme-config ./theme.config.jsx
-
-# Convert pages directory to app directory
-npx nextra-codemods migrate-pages-to-app ./pages
 
 # Set up Pagefind search
 npx nextra-codemods setup-search ./package.json

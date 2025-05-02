@@ -1,5 +1,4 @@
-import { test, expect } from 'jest';
-import transform from '../migrate-theme-config';
+import transform from '../src/transforms/migrate-theme-config';
 import jscodeshift from 'jscodeshift';
 import fs from 'fs';
 
@@ -29,7 +28,7 @@ export default {
   // Run the transform
   const output = transform(
     { path: 'theme.config.js', source: input },
-    { jscodeshift },
+    { jscodeshift, j: jscodeshift, stats: () => {}, report: () => {} },
     {}
   );
   
@@ -40,7 +39,7 @@ export default {
   expect(fs.writeFileSync).toHaveBeenCalled();
   
   // Get the first call arguments
-  const layoutCallArgs = fs.writeFileSync.mock.calls.find(
+  const layoutCallArgs = (fs.writeFileSync as jest.Mock).mock.calls.find(
     call => call[0].includes('layout.jsx')
   );
   
@@ -65,12 +64,12 @@ export default {
   // Run the transform
   transform(
     { path: 'theme.config.js', source: input },
-    { jscodeshift },
+    { jscodeshift, j: jscodeshift, stats: () => {}, report: () => {} },
     {}
   );
   
   // Verify mdx-components.jsx was created
-  const mdxComponentsCallArgs = fs.writeFileSync.mock.calls.find(
+  const mdxComponentsCallArgs = (fs.writeFileSync as jest.Mock).mock.calls.find(
     call => call[0].includes('mdx-components.jsx')
   );
   

@@ -1,5 +1,4 @@
-import { test, expect } from'jest';
-import transform from'../migrate-mdx-components';
+import transform from'../src/transforms/migrate-mdx-components';
 import jscodeshift from 'jscodeshift';
 import fs from 'fs';
 
@@ -23,13 +22,13 @@ export default {
   // Run the transform
   transform(
     { path: 'theme.config.js', source: input },
-    { jscodeshift },
+    { jscodeshift, j: jscodeshift, stats: () => {}, report: () => {} },
     { projectRoot: '/' }
   );
   
   // Verify mdx-components.jsx was created with docs theme
   expect(fs.writeFileSync).toHaveBeenCalled();
-  const args = fs.writeFileSync.mock.calls[0];
+  const args = (fs.writeFileSync as jest.Mock).mock.calls[0];
   expect(args[0]).toBe('/mdx-components.jsx');
   expect(args[1]).toContain('nextra-theme-docs');
   expect(args[1]).toContain('getDocsMDXComponents');
@@ -49,13 +48,13 @@ export default {
   // Run the transform
   transform(
     { path: 'theme.config.js', source: input },
-    { jscodeshift },
+    { jscodeshift, j: jscodeshift, stats: () => {}, report: () => {} },
     { projectRoot: '/' }
   );
   
   // Verify mdx-components.jsx was created with blog theme
   expect(fs.writeFileSync).toHaveBeenCalled();
-  const args = fs.writeFileSync.mock.calls[0];
+  const args = (fs.writeFileSync as jest.Mock).mock.calls[0];
   expect(args[0]).toBe('/mdx-components.jsx');
   expect(args[1]).toContain('nextra-theme-blog');
   expect(args[1]).toContain('getBlogMDXComponents');
@@ -65,7 +64,7 @@ test('migrate-mdx-components skips non-theme.config files', () => {
   // Run the transform on a non-theme.config file
   transform(
     { path: 'some-other-file.js', source: 'export default {}' },
-    { jscodeshift },
+    { jscodeshift, j: jscodeshift, stats: () => {}, report: () => {} },
     {}
   );
   
