@@ -17,7 +17,7 @@
     "test:watch": "jest --watch",
     "lint": "eslint . --ext .ts,.tsx",
     "typecheck": "tsc --noEmit",
-    "prepare": "corepack enable && husky install"
+    "prepare": "husky"
   },
   "keywords": [
     "nextra",
