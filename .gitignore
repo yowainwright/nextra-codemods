@@ -141,5 +141,6 @@ dist
 .specstory/
 .vscode/
 # SpecStory explanation file
+.specstory/
 .specstory/.what-is-this.md
 .specstory/*
