@@ -90,6 +90,6 @@ export default [
     },
   },
   {
-    ignores: ['dist/**', 'node_modules/**', '.github/**'],
+    ignores: ['dist/**', 'node_modules/**', '.github/**', '__fixtures__/**'],
   },
 ];
